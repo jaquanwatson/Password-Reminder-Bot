@@ -1,0 +1,44 @@
+# Password Reminder Bot Configuration
+active_directory:
+  server: "ldap://dc01.company.com"
+  domain: "company.com"
+  bind_user: "service-account@company.com"
+  bind_password: "your-password"
+  base_dn: "DC=company,DC=com"
+
+notifications:
+  email:
+    enabled: true
+    smtp_server: "smtp.company.com"
+    smtp_port: 587
+    username: "noreply@company.com"
+    password: "smtp-password"
+    from_address: "IT Support <noreply@company.com>"
+    
+  teams:
+    enabled: true
+    webhook_url: "https://outlook.office.com/webhook/your-webhook-url"
+    
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/your-webhook"
+
+reminders:
+  # Days before expiration to send reminders
+  warning_days: [30, 14, 7, 3, 1]
+  
+  # Custom messages for different warning periods
+  messages:
+    30: "Your password will expire in 30 days. Please change it soon."
+    14: "Your password will expire in 2 weeks. Please change it soon."
+    7: "Your password will expire in 1 week. Please change it soon."
+    3: "Your password will expire in 3 days. Please change it immediately."
+    1: "Your password will expire tomorrow. Please change it immediately."
+
+schedule:
+  run_time: "09:00"  # Daily run time
+  timezone: "UTC"
+
+logging:
+  level: "INFO"
+  file: "logs/password_reminders.log"

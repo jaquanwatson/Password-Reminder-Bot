@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Expiration Reminder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .warning-icon {
+            font-size: 48px;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+        .title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .alert-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .days-remaining {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .instructions {
+            background-color: #e8f5e8;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="warning-icon">⚠️</div>
+            <h1 class="title">Password Expiration Reminder</h1>
+        </div>
+        
+        <p>Hello <strong>{{ user_name }}</strong>,</p>
+        
+        <div class="alert-box">
+            <p><strong>{{ message }}</strong></p>
+        </div>
+        
+        <div class="days-remaining">
+            {% if days_remaining == 1 %}
+                Your password expires TOMORROW!
+            {% else %}
+                {{ days_remaining }} days remaining
+            {% endif %}
+        </div>
+        
+        <p>Your password will expire on <strong>{{ expiration_date }}</strong>.</p>
+        
+        <div class="instructions">
+            <h3>How to change your password:</h3>
+            <ol>
+                <li>Press <strong>Ctrl + Alt + Delete</strong> on your computer</li>
+                <li>Click <strong>"Change a password"</strong></li>
+                <li>Enter your current password and new password</li>
+                <li>Your new password must meet complexity requirements</li>
+            </ol>
+            
+            <p><strong>Password Requirements:</strong></p>
+            <ul>
+                <li>At least 16 characters long</li>
+                <li>Contains uppercase and lowercase letters</li>
+                <li>Contains at least one number</li>
+                <li>Contains at least one special character</li>
+                <li>Cannot be the same as your last 12 passwords</li>
+            </ul>
+        </div>
+        
+        <p>If you need assistance changing your password, please contact the IT Help Desk:</p>
+        <ul>
+            <li>📞 Phone: (555) 123-4567</li>
+            <li>📧 Email: helpdesk@company.com</li>
+            <li>💬 Teams: IT Support Channel</li>
+        </ul>
+        
+        <div class="footer">
+            <p>This is an automated message from the IT Security System.<br>
+            Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+    "@type": "MessageCard",
+    "@context": "http://schema.org/extensions",
+    "themeColor": "FF6B35",
+    "summary": "Password Expiration Alerts",
+    "sections": [
+        {
+            "activityTitle": "Password Expiration Alerts",
+            "activitySubtitle": "Users with expiring passwords",
+            "activityImage": "https://img.icons8.com/color/48/000000/password.png",
+            "facts": [
+                {
+                    "name": "Total Users:",
+                    "value": "{{ total_users }}"
+                },
+                {
+                    "name": "Expiring Today:",
+                    "value": "{{ expiring_today }}"
+                },
+                {
+                    "name": "Expiring This Week:",
+                    "value": "{{ expiring_week }}"
+                }
+            ],
+            "markdown": true
+        }
+    ],
+    "potentialAction": [
+        {
+            "@type": "OpenUri",
+            "name": "View Active Directory",
+            "targets": [
+                {
+                    "os": "default",
+                    "uri": "https://portal.azure.com"
+                }
+            ]
+        }
+    ]
+}
