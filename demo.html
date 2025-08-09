@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reminder Bot - Interactive Demo</title>
+    <link rel="stylesheet" href="https://jaquanwatson.github.io/demo-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="demo-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h1><i class="fas fa-key"></i> Password Reminder Bot</h1>
+                <p>Automated password expiration notifications and security compliance</p>
+            </div>
+            <div class="header-actions">
+                <a href="https://github.com/jaquanwatson/Password-Reminder-Bot" class="github-btn" target="_blank">
+                    <i class="fab fa-github"></i> View Code
+                </a>
+                <button class="refresh-btn" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+                <button class="scan-btn" onclick="runPasswordScan()">
+                    <i class="fas fa-search"></i> Check Passwords
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <main class="dashboard">
+        <!-- Key Metrics -->
+        <section class="metrics-section">
+            <h2><i class="fas fa-tachometer-alt"></i> Password Security Overview</h2>
+            <div class="metrics-grid">
+                <div class="metric-card total">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Total Users</h3>
+                        <div class="metric-number">2,847</div>
+                        <div class="metric-detail">Monitored accounts</div>
+                    </div>
+                </div>
+
+                <div class="metric-card expiring">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Expiring Soon</h3>
+                        <div class="metric-number">156</div>
+                        <div class="metric-change warning">
+                            <i class="fas fa-exclamation-triangle"></i> Next 14 days
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card expired">
+                    <div class="metric-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Expired</h3>
+                        <div class="metric-number">23</div>
+                        <div class="metric-change negative">
+                            <i class="fas fa-ban"></i> Immediate action needed
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card notifications">
+                    <div class="metric-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Notifications Sent</h3>
+                        <div class="metric-number">1,247</div>
+                        <div class="metric-detail">This month</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Timeline -->
+        <section class="timeline-section">
+            <div class="section-header">
+                <h2><i class="fas fa-timeline"></i> Password Expiration Timeline</h2>
+                <div class="timeline-controls">
+                    <button class="timeline-btn active">7 Days</button>
+                    <button class="timeline-btn">14 Days</button>
+                    <button class="timeline-btn">30 Days</button>
+                    <button class="timeline-btn">90 Days</button>
+                </div>
+            </div>
+            
+            <div class="expiration-timeline">
+                <div class="timeline-item urgent">
+                    <div class="timeline-date">Today</div>
+                    <div class="timeline-content">
+                        <div class="timeline-count">23</div>
+                        <div class="timeline-label">Expired</div>
+                    </div>
+                </div>
+                <div class="timeline-item critical">
+                    <div class="timeline-date">1-3 Days</div>
+                    <div class="timeline-content">
+                        <div class="timeline-count">47</div>
+                        <div class="timeline-label">Critical</div>
+                    </div>
+                </div>
+                <div class="timeline-item warning">
+                    <div class="timeline-date">4-7 Days</div>
+                    <div class="timeline-content">
+                        <div class="timeline-count">89</div>
+                        <div class="timeline-label">Warning</div>
+                    </div>
+                </div>
+                <div class="timeline-item info">
+                    <div class="timeline-date">8-14 Days</div>
+                    <div class="timeline-content">
+                        <div class="timeline-count">156</div>
+                        <div class="timeline-label">Notice</div>
+                    </div>
+                </div>
+                <div class="timeline-item normal">
+                    <div class="timeline-date">15-30 Days</div>
+                    <div class="timeline-content">
+                        <div class="timeline-count">298</div>
+                        <div class="timeline-label">Upcoming</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Templates -->
+        <section class="templates-section">
+            <div class="section-header">
+                <h2><i class="fas fa-envelope"></i> Notification Templates</h2>
+                <button class="add-template-btn">
+                    <i class="fas fa-plus"></i> Add Template
+                </button>
+            </div>
+            
+            <div class="templates-grid">
+                <div class="template-card active">
+                    <div class="template-header">
+                        <h3>14-Day Notice</h3>
+                        <div class="template-status enabled">
+                            <i class="fas fa-check-circle"></i> Enabled
+                        </div>
+                    </div>
+                    <div class="template-preview">
+                        <div class="template-subject">
+                            <strong>Subject:</strong> Password Expires in 14 Days - Action Required
+                        </div>
+                        <div class="template-body">
+                            <p>Hi {{user_name}},</p>
+                            <p>Your password will expire on {{expiry_date}}. Please change it before then to avoid account lockout.</p>
+                            <p><a href="{{password_change_url}}">Change Password Now</a></p>
+                        </div>
+                    </div>
+                    <div class="template-stats">
+                        <span>Sent: 342 times</span>
+                        <span>Success Rate: 89%</span>
+                    </div>
+                    <div class="template-actions">
+                        <button class="template-btn edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="template-btn test">
+                            <i class="fas fa-paper-plane"></i> Test
+                        </button>
+                    </div>
+                </div>
+
+                <div class="template-card active">
+                    <div class="template-header">
+                        <h3>7-Day Warning</h3>
+                        <div class="template-status enabled">
+                            <i class="fas fa-check-circle"></i> Enabled
+                        </div>
+                    </div>
+                    <div class="template-preview">
+                        <div class="template-subject">
+                            <strong>Subject:</strong> ⚠️ Password Expires in 7 Days - Urgent Action Required
+                        </div>
+                        <div class="template-body">
+                            <p>Hi {{user_name}},</p>
+                            <p><strong>URGENT:</strong> Your password expires in 7 days on {{expiry_date}}.</p>
+                            <p><a href="{{password_change_url}}">Change Password Immediately</a></p>
+                        </div>
+                    </div>
+                    <div class="template-stats">
+                        <span>Sent: 198 times</span>
+                        <span>Success Rate: 94%</span>
+                    </div>
+                    <div class="template-actions">
+                        <button class="template-btn edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="template-btn test">
+                            <i class="fas fa-paper-plane"></i> Test
+                        </button>
+                    </div>
+                </div>
+
+                <div class="template-card active">
+                    <div class="template-header">
+                        <h3>Teams Notification</h3>
+                        <div class="template-status enabled">
+                            <i class="fas fa-check-circle"></i> Enabled
+                        </div>
+                    </div>
+                    <div class="template-preview">
+                        <div class="teams-message">
+                            <div class="teams-header">
+                                <i class="fab fa-microsoft"></i> Password Reminder Bot
+                            </div>
+                            <div class="teams-content">
+                                <h4>🔐 Password Expiration Alert</h4>
+                                <p>Your password expires on {{expiry_date}}</p>
+                                <button class="teams-action-btn">Change Password</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-stats">
+                        <span>Sent: 156 times</span>
+                        <span>Success Rate: 76%</span>
+                    </div>
+                    <div class="template-actions">
+                        <button class="template-btn edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="template-btn test">
+                            <i class="fas fa-paper-plane"></i> Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Management Table -->
+        <section class="users-section">
+            <div class="section-header">
+                <h2><i class="fas fa-users-cog"></i> Password Status Management</h2>
+                <div class="table-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search users...">
+                    </div>
+                    <select class="filter-dropdown">
+                        <option>All Status</option>
+                        <option>Expired</option>
+                        <option>Expiring Soon</option>
+                        <option>Recently Changed</option>
+                    </select>
+                    <button class="export-btn">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="accounts-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>User</th>
+                            <th>Department</th>
+                            <th>Password Age</th>
+                            <th>Expires In</th>
+                            <th>Status</th>
+                            <th>Last Notification</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="expired-row">
+                            <td><input type="checkbox"></td>
+                            <td>
+                                <div class="account-info">
+                                    <div class="account-avatar">JD</div>
+                                    <div>
+                                        <div class="account-name">John Doe</div>
+                                        <div class="account-email">john.doe@company.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>IT</td>
+                            <td>92 days</td>
+                            <td><span class="expiry-status expired">Expired</span></td>
+                            <td><span class="status-badge expired">Expired</span></td>
+                            <td>2 hours ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn reset" title="Force Reset">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                    <button class="action-btn notify" title="Send Notification">
+                                        <i class="fas fa-bell"></i>
+                                    </button>
+                                    <button class="action-btn contact" title="Contact User">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="critical-row">
+                            <td><input type="checkbox"></td>
+                            <td>
+                                <div class="account-info">
+                                    <div class="account-avatar">SM</div>
+                                    <div>
+                                        <div class="account-name">Sarah Miller</div>
+                                        <div class="account-email">sarah.miller@company.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Marketing</td>
+                            <td>88 days</td>
+                            <td><span class="expiry-status critical">2 days</span></td>
+                            <td><span class="status-badge critical">Critical</span></td>
+                            <td>Yesterday</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn notify" title="Send Notification">
+                                        <i class="fas fa-bell"></i>
+                                    </button>
+                                    <button class="action-btn teams" title="Teams Message">
+                                        <i class="fab fa-microsoft"></i>
+                                    </button>
+                                    <button class="action-btn contact" title="Contact User">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="warning-row">
+                            <td><input type="checkbox"></td>
+                            <td>
+                                <div class="account-info">
+                                    <div class="account-avatar">MJ</div>
+                                    <div>
+                                        <div class="account-name">Mike Johnson</div>
+                                        <div class="account-email">mike.johnson@company.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Sales</td>
+                            <td>83 days</td>
+                            <td><span class="expiry-status warning">7 days</span></td>
+                            <td><span class="status-badge warning">Warning</span></td>
+                            <td>3 days ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn notify" title="Send Notification">
+                                        <i class="fas fa-bell"></i>
+                                    </button>
+                                    <button class="action-btn schedule" title="Schedule Reminder">
+                                        <i class="fas fa-calendar"></i>
+                                    </button>
+                                    <button class="action-btn contact" title="Contact User">
+                                        <i class="fas fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="normal-row">
+                            <td><input type="checkbox"></td>
+                            <td>
+                                <div class="account-info">
+                                    <div class="account-avatar">AL</div>
+                                    <div>
+                                        <div class="account-name">Anna Lee</div>
+                                        <div class="account-email">anna.lee@company.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Finance</td>
+                            <td>15 days</td>
+                            <td><span class="expiry-status normal">75 days</span></td>
+                            <td><span class="status-badge normal">Normal</span></td>
+                            <td>Never</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn details" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn history" title="View History">
+                                        <i class="fas fa-history"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="bulk-actions">
+                <button class="bulk-btn">
+                    <i class="fas fa-bell"></i> Notify Selected
+                </button>
+                <button class="bulk-btn">
+                    <i class="fab fa-microsoft"></i> Teams Message
+                </button>
+                <button class="bulk-btn">
+                    <i class="fas fa-redo"></i> Force Reset Selected
+                </button>
+                <button class="bulk-btn">
+                    <i class="fas fa-file-export"></i> Export Selected
+                </button>
+            </div>
+        </section>
+
+        <!-- Bot Configuration -->
+        <section class="config-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog"></i> Bot Configuration</h2>
+            </div>
+            
+            <div class="config-grid">
+                <div class="config-card">
+                    <h3><i class="fas fa-clock"></i> Notification Schedule</h3>
+                    <div class="config-content">
+                        <div class="config-item">
+                            <label>First Notice</label>
+                            <select>
+                                <option>7 days before</option>
+                                <option selected>14 days before</option>
+                                <option>21 days before</option>
+                            </select>
+                        </div>
+                        <div class="config-item">
+                            <label>Reminder Frequency</label>
+                            <select>
+                                <option selected>Daily</option>
+                                <option>Every 2 days</option>
+                                <option>Weekly</option>
+                            </select>
+                        </div>
+                        <div class="config-item">
+                            <label>Send Time</label>
+                            <input type="time" value="09:00">
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" checked> Weekend notifications
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3><i class="fas fa-users"></i> Target Users</h3>
+                    <div class="config-content">
+                        <div class="config-item">
+                            <label>Include Groups</label>
+                            <div class="group-tags">
+                                <span class="group-tag">All Users <i class="fas fa-times"></i></span>
+                                <span class="group-tag">IT Staff <i class="fas fa-times"></i></span>
+                                <span class="group-tag">Managers <i class="fas fa-times"></i></span>
+                            </div>
+                            <input type="text" placeholder="Add group...">
+                        </div>
+                        <div class="config-item">
+                            <label>Exclude Groups</label>
+                            <div class="group-tags">
+                                <span class="group-tag">Service Accounts <i class="fas fa-times"></i></span>
+                                <span class="group-tag">Test Users <i class="fas fa-times"></i></span>
+                            </div>
+                            <input type="text" placeholder="Add exclusion...">
+                        </div>
+                        <div class="config-item">
+                            <label>
+                                <input type="checkbox" checked> Include admin accounts
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <h3><i class="fas fa-bell"></i> Notification Channels</h3>
+                    <div class="config-content">
+                        <div class="channel-option">
+                            <label>
+                                <input type="checkbox" checked> Email notifications
+                            </label>
+                        </div>
+                        <div class="channel-option">
+                            <label>
+                                <input type="checkbox" checked> Microsoft Teams
+                            </label>
+                        </div>
+                        <div class="channel-option">
+                            <label>
+                                <input type="checkbox"> SMS notifications
+                            </label>
+                        </div>
+                        <div class="channel-option">
+                            <label>
+                                <input type="checkbox"> Slack integration
+                            </label>
+                        </div>
+                        <div class="config-item">
+                            <label>Escalation Email</label>
+                            <input type="email" placeholder="admin@company.com" value="security@company.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-actions">
+                <button class="config-btn save">
+                    <i class="fas fa-save"></i> Save Configuration
+                </button>
+                <button class="config-btn test">
+                    <i class="fas fa-play"></i> Test Bot
+                </button>
+                <button class="config-btn reset">
+                    <i class="fas fa-undo"></i> Reset to Defaults
+                </button>
+            </div>
+        </section>
+
+        <!-- Activity Log -->
+        <section class="log-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> Recent Activity</h2>
+                <div class="log-controls">
+                    <select class="log-filter">
+                        <option>All Activities</option>
+                        <option>Notifications Sent</option>
+                        <option>Password Changes</option>
+                        <option>Errors</option>
+                    </select>
+                    <button class="clear-log-btn">
+                        <i class="fas fa-trash"></i> Clear Log
+                    </button>
+                </div>
+            </div>
+            
+            <div class="activity-log">
+                <div class="log-entry success">
+                    <div class="log-time">2 minutes ago</div>
+                    <div class="log-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="log-message">
+                        <strong>Notification sent</strong> to john.doe@company.com - Password expires in 0 days
+                    </div>
+                </div>
+                <div class="log-entry success">
+                    <div class="log-time">15 minutes ago</div>
+                    <div class="log-icon"><i class="fas fa-key"></i></div>
+                    <div class="log-message">
+                        <strong>Password changed</strong> by sarah.miller@company.com
+                    </div>
+                </div>
+                <div class="log-entry warning">
+                    <div class="log-time">1 hour ago</div>
+                    <div class="log-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="log-message">
+                        <strong>Teams notification failed</strong> for mike.johnson@company.com - User not found
+                    </div>
+                </div>
+                <div class="log-entry info">
+                    <div class="log-time">2 hours ago</div>
+                    <div class="log-icon"><i class="fas fa-sync"></i></div>
+                    <div class="log-message">
+                        <strong>Daily scan completed</strong> - 2,847 users processed, 156 notifications queued
+                    </div>
+                </div>
+                <div class="log-entry success">
+                    <div class="log-time">3 hours ago</div>
+                    <div class="log-icon"><i class="fas fa-bell"></i></div>
+                    <div class="log-message">
+                        <strong>Bulk notification sent</strong> to 47 users - 7-day warning
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Demo functionality
+        function refreshData() {
+            alert('Password data refreshed! In a real application, this would fetch the latest password expiration data from Active Directory.');
+        }
+
+        function runPasswordScan() {
+            alert('Password scan initiated! This would check all user accounts for upcoming password expirations and queue notifications.');
+        }
+
+        // Interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Timeline controls
+            document.querySelectorAll('.timeline-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.parentNode.querySelectorAll('.timeline-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Template actions
+            document.querySelectorAll('.template-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    alert(`${action} template functionality would be implemented here.`);
+                });
+            });
+
+            // Action buttons
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.title || this.textContent.trim();
+                    alert(`${action} functionality would be implemented here.`);
+                });
+            });
+
+            // Configuration buttons
+            document.querySelectorAll('.config-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    alert(`${action} functionality would be implemented here.`);
+                });
+            });
+
+            // Bulk actions
+            document.querySelectorAll('.bulk-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    alert(`${action} functionality would be implemented here.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
