@@ -12,11 +12,11 @@
 
 </div>
 
-## 🔑 Overview
+## Overview
 
 Password Reminder Bot is an enterprise-grade solution that automates password expiration notifications through Microsoft Teams, reducing helpdesk tickets by up to 40% while improving security compliance. The system proactively alerts users before their passwords expire, providing direct links to self-service reset portals and customized instructions.
 
-### 🌟 Key Benefits
+### Key Benefits
 
 - **Reduce IT Support Burden**: Decrease password reset tickets by 30-40%
 - **Improve Security Compliance**: Ensure timely password updates across the organization
@@ -24,12 +24,12 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
 - **Increase Productivity**: Minimize account lockouts and work disruptions
 - **Detailed Analytics**: Track notification effectiveness and user response rates
 
-## ✨ Features
+## Features
 
 <table>
   <tr>
     <td width="50%">
-      <h3>🔔 Smart Notifications</h3>
+      <h3>Smart Notifications</h3>
       <ul>
         <li>Escalating urgency as expiration approaches</li>
         <li>Business hours delivery respecting time zones</li>
@@ -38,7 +38,7 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
       </ul>
     </td>
     <td width="50%">
-      <h3>🌐 Teams Integration</h3>
+      <h3>Teams Integration</h3>
       <ul>
         <li>Direct personal messages to users</li>
         <li>IT team channel summary reports</li>
@@ -49,7 +49,7 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
   </tr>
   <tr>
     <td>
-      <h3>🌍 Multi-language Support</h3>
+      <h3>Multi-language Support</h3>
       <ul>
         <li>English, Spanish, French, German</li>
         <li>Customizable message templates</li>
@@ -58,7 +58,7 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
       </ul>
     </td>
     <td>
-      <h3>📊 Compliance & Reporting</h3>
+      <h3>Compliance & Reporting</h3>
       <ul>
         <li>Notification delivery tracking</li>
         <li>User response monitoring</li>
@@ -69,7 +69,7 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
   </tr>
 </table>
 
-## 🖼️ Screenshots & Demo
+## Screenshots & Demo
 
 <div align="center">
 
@@ -83,7 +83,7 @@ Password Reminder Bot is an enterprise-grade solution that automates password ex
 
 </div>
 
-## 🛠️ Technical Architecture
+## Technical Architecture
 
 ```mermaid
 graph TD
@@ -101,7 +101,7 @@ graph TD
     J -->|No| K[Generate Report]
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Azure subscription
 - Microsoft Teams tenant
@@ -111,7 +111,7 @@ graph TD
   - `TeamsAppInstallation.ReadWriteForUser`
 - Python 3.8+
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Local Development
 
@@ -141,7 +141,7 @@ npm install -g azure-functions-core-tools@4
 func azure functionapp publish your-function-app-name
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -176,7 +176,7 @@ HELPDESK_CONTACT=ext.1234
 }
 ```
 
-## 📊 Sample Reports
+## Sample Reports
 
 ### Daily Notification Summary
 
@@ -204,7 +204,7 @@ Failed Deliveries:
 - user2@company.com (Account disabled)
 ```
 
-## 🔒 Security Considerations
+## Security Considerations
 
 - **Secure Storage**: Credentials stored in Azure Key Vault
 - **Least Privilege**: Minimal required permissions
@@ -212,7 +212,7 @@ Failed Deliveries:
 - **Data Privacy**: No password data stored or transmitted
 - **Encryption**: All communications encrypted in transit
 
-## 🌐 Multi-language Support
+## Multi-language Support
 
 Currently supported languages:
 
@@ -223,7 +223,7 @@ Currently supported languages:
 
 Add new languages by creating message templates in `/locales/`
 
-## 🧩 Advanced Features
+## Advanced Features
 
 ### Custom Message Templates
 
@@ -243,7 +243,7 @@ executive_template = {
 - **Email**: Fallback notifications via Exchange
 - **SMS**: Critical notifications via Twilio
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
 
@@ -261,11 +261,11 @@ black .
 flake8 .
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author & Support
+## Author & Support
 
 **Jaquan Watson** - Cloud & Systems Engineer
 
